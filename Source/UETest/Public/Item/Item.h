@@ -18,12 +18,29 @@ public:
 
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sine Parameters")
+	float Amplitude = 0.25f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sine Parameters")
+	float Period = 5.f;
+
+	UFUNCTION(BlueprintPure)
+	float TransformedSin();
+
+	UFUNCTION(BlueprintPure)
+	float TransformedCos();
+
+	template<typename T>
+	T Avg(T First, T Second);
+
 private:
 	float RunningTime;
-	UPROPERTY(EditAnywhere)
-	float Amplitude = 0.25f;
-	UPROPERTY(EditAnywhere)
-	float Period = 5.f;
 };
+
+template<typename T>
+inline T AItem::Avg(T First, T Second)
+{
+	return (First + Second) / 2;
+}
